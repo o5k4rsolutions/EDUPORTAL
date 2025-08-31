@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Już wkrótce</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+        
+        .logo img {
+            max-width: 150px;
+            height: auto;
+            box-shadow: 0 0 10px rgba(135, 206, 235, 0.5); /* Delikatna poświata */
+            border-radius: 5px;
+            animation: fadeIn 3s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        .email {
+            color: #c9d1d9;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: bold;
+            animation: fadeIn 3s ease-in-out forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        .email:hover {
+            color: #58a6ff;
+            text-shadow: 0 0 5px rgba(88, 166, 255, 0.7);
+        }
+
+        .container {
+            position: relative;
+            max-width: 90%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .main-text {
+            font-size: 5vw;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            animation: fadeIn 3s ease-in-out forwards;
+            animation-delay: 2s;
+            opacity: 0;
+        }
+
+        .sub-text {
+            font-size: 2vw;
+            margin-top: 15px;
+            animation: fadeIn 3s ease-in-out forwards;
+            animation-delay: 3s;
+            opacity: 0;
+        }
+
+        .date {
+            font-size: 2.5vw;
+            margin-top: 20px;
+            animation: slideInUp 2s ease-out forwards;
+            animation-delay: 4s;
+            opacity: 0;
+            text-shadow: 0 0 10px rgba(201, 209, 217, 0.5);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Particles animation */
+        .particle {
+            position: absolute;
+            background-color: #c9d1d9;
+            border-radius: 50%;
+            animation: particleAnimation 10s infinite;
+        }
+
+        @keyframes particleAnimation {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0.2);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                justify-content: center;
+            }
+            .logo img {
+                max-width: 100px;
+            }
+            .email {
+                margin-top: 10px;
+                font-size: 0.8em;
+            }
+            .main-text {
+                font-size: 10vw;
+            }
+            .sub-text {
+                font-size: 4vw;
+            }
+            .date {
+                font-size: 6vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <!-- Logo w nagłówku -->
+        <div class="logo">
+            <img src="https://i.imgur.com/gK9o9qO.png" alt="Logo EDU PORTAL">
+        </div>
+        <!-- Adres e-mail -->
+        <a href="mailto:kontakt@eduportal.pl" class="email">kontakt@eduportal.pl</a>
+    </div>
+
+    <div class="container">
+        <h1 class="main-text">JUŻ WKRÓTCE...</h1>
+        <p class="sub-text">Przygotuj się na coś wyjątkowego!</p>
+        <p class="date">STARTUJEMY W GRUDNIU</p>
+    </div>
+
+    <script>
+        // JavaScript for particle animation
+        const body = document.body;
+        const numberOfParticles = 50;
+
+        for (let i = 0; i < numberOfParticles; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            const size = Math.random() * 5 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+
+            const animationDelay = Math.random() * 10;
+            const translateX = (Math.random() - 0.5) * 500;
+            const translateY = (Math.random() - 0.5) * 500;
+
+            particle.style.animationDelay = `${animationDelay}s`;
+            particle.style.setProperty('--x', `${translateX}px`);
+            particle.style.setProperty('--y', `${translateY}px`);
+
+            body.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
