@@ -33,11 +33,10 @@
             box-sizing: border-box;
             z-index: 10;
         }
-        
+
         .logo img {
             max-width: 150px;
             height: auto;
-            box-shadow: 0 0 10px rgba(135, 206, 235, 0.5); /* Delikatna poświata */
             border-radius: 5px;
             animation: fadeIn 3s ease-in-out forwards;
             opacity: 0;
@@ -54,6 +53,23 @@
         }
 
         .email:hover {
+            color: #58a6ff;
+            text-shadow: 0 0 5px rgba(88, 166, 255, 0.7);
+        }
+
+        .admin-link {
+            color: #c9d1d9;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s, text-shadow 0.3s;
+            animation: fadeIn 3s ease-in-out forwards;
+            animation-delay: 1.5s;
+            opacity: 0;
+        }
+        
+        .admin-link:hover {
             color: #58a6ff;
             text-shadow: 0 0 5px rgba(88, 166, 255, 0.7);
         }
@@ -95,7 +111,77 @@
             opacity: 0;
             text-shadow: 0 0 10px rgba(201, 209, 217, 0.5);
         }
+
+        /* Admin panel styles */
+        .admin-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #161b22;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        .admin-panel.active {
+            display: flex;
+            opacity: 1;
+        }
         
+        .admin-panel h2 {
+            font-size: 1.5em;
+            margin: 0 0 10px;
+            text-align: center;
+        }
+        
+        .admin-panel input {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            padding: 10px;
+            border-radius: 5px;
+            width: 250px;
+        }
+        
+        .admin-panel button {
+            background-color: #238636;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .admin-panel button:hover {
+            background-color: #2ea043;
+        }
+        
+        .admin-panel .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #c9d1d9;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .error-message {
+            color: #f85149;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -145,7 +231,7 @@
             .logo img {
                 max-width: 100px;
             }
-            .email {
+            .email, .admin-link {
                 margin-top: 10px;
                 font-size: 0.8em;
             }
@@ -169,12 +255,26 @@
         </div>
         <!-- Adres e-mail -->
         <a href="mailto:kontakt@eduportal.pl" class="email">kontakt@eduportal.pl</a>
+        <!-- Przycisk do panelu admina -->
+        <a class="admin-link" id="admin-link">Panel Admina</a>
     </div>
 
     <div class="container">
         <h1 class="main-text">JUŻ WKRÓTCE...</h1>
         <p class="sub-text">Przygotuj się na coś wyjątkowego!</p>
         <p class="date">STARTUJEMY W GRUDNIU</p>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="admin-panel">
+        <button class="close-btn" id="close-btn">&times;</button>
+        <h2>Panel Administracyjny</h2>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Login" required>
+            <input type="password" id="password" placeholder="Hasło" required>
+            <button type="submit">Zaloguj</button>
+        </form>
+        <p class="error-message" id="error-message"></p>
     </div>
 
     <script>
@@ -205,6 +305,29 @@
 
             body.appendChild(particle);
         }
+
+        // JavaScript for admin login panel
+        const adminLink = document.getElementById('admin-link');
+        const adminPanel = document.getElementById('admin-panel');
+        const closeBtn = document.getElementById('close-btn');
+        const loginForm = document.getElementById('login-form');
+        const errorMessage = document.getElementById('error-message');
+
+        adminLink.addEventListener('click', () => {
+            adminPanel.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            adminPanel.classList.remove('active');
+            errorMessage.textContent = ''; // Clear error message on close
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // This is the core logic: always show an error message
+            errorMessage.textContent = 'Nieprawidłowy login lub hasło.';
+        });
+
     </script>
 </body>
 </html>
